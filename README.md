@@ -42,7 +42,21 @@ To launch the simulation and start mapping the environment:
 ```bash
 ros2 launch unitree_go2_sim unitree_go2_slam.launch.py
 ```
-Drive the robot around using the teleop terminal to cover the entire area.
+
+#### Control the Robot with Teleop
+In a new terminal, run the teleop keyboard node to drive the robot around:
+```bash
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+```
+Use the keyboard controls displayed in the terminal to move the robot:
+- `i` - Move forward
+- `,` - Move backward
+- `j` - Turn left
+- `l` - Turn right
+- `k` - Stop
+- `u/o/m/.` - Move diagonally
+
+Drive the robot around to cover the entire area and build a complete map.
 
 ### 2. Save the Map
 Once you are satisfied with the map, save it using the map saver CLI:

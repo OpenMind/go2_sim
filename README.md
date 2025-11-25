@@ -22,7 +22,7 @@ This repository contains the ROS 2 simulation packages for the Unitree Go2 quadr
 
 3.  Install dependencies:
     ```bash
-    rosdep install --from-paths src --ignore-src -r -y
+    rosdep install --from-paths . --ignore-src -r -y
     ```
 
 4.  Build the workspace:

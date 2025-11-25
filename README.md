@@ -12,7 +12,7 @@ This repository contains the ROS 2 simulation packages for the Unitree Go2 quadr
 
 1.  Navigate to your `unitree-sdk` directory (assuming it is in your workspace `src`):
     ```bash
-    cd ~/ros2_ws/src/unitree-sdk
+    cd ~/unitree-sdk
     ```
 
 2.  Clone this repository as a submodule:

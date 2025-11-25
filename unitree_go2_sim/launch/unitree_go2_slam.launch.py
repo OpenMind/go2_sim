@@ -14,6 +14,7 @@ def generate_launch_description():
     rviz_config = PathJoinSubstitution([go2_sdk, "config", "rviz.rviz"])
     
     use_sim_time = LaunchConfiguration("use_sim_time")
+    world = LaunchConfiguration("world")
     
     declare_use_sim_time = DeclareLaunchArgument(
         "use_sim_time",
@@ -22,7 +23,14 @@ def generate_launch_description():
     )
     
     unitree_go2_description = FindPackageShare("unitree_go2_description")
-    walled_world = PathJoinSubstitution([unitree_go2_description, "worlds", "walled_world.sdf"])
+    
+    declare_world = DeclareLaunchArgument(
+        "world",
+        default_value="maze_world.sdf",
+        description="World file name (e.g., walled_world.sdf, maze_world.sdf)",
+    )
+    
+    world_path = PathJoinSubstitution([unitree_go2_description, "worlds", world])
 
     # Include the simulation launch file
     # Disable rviz in sim launch, we launch it here
@@ -35,7 +43,7 @@ def generate_launch_description():
             "use_sim_time": use_sim_time,
             "rviz": "false", 
             "publish_map_tf": "false",
-            "world": walled_world,
+            "world": world_path,
         }.items(),
     )
     
@@ -65,6 +73,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         declare_use_sim_time,
+        declare_world,
         sim_launch,
         slam_toolbox,
         rviz_node,

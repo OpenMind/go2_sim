@@ -7,7 +7,7 @@ from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
-    unitree_go2_sim = FindPackageShare("unitree_go2_sim")
+    unitree_go2_gazebo_sim = FindPackageShare("unitree_go2_gazebo_sim")
     go2_sdk = FindPackageShare("go2_sdk")
     
     nav2_config = PathJoinSubstitution([go2_sdk, "config", "nav2_params.yaml"])
@@ -25,7 +25,7 @@ def generate_launch_description():
     
     declare_map = DeclareLaunchArgument(
         "map",
-        default_value=PathJoinSubstitution([unitree_go2_sim, "map", "map.yaml"]), # Default map path, might need to be created
+        default_value=PathJoinSubstitution([unitree_go2_gazebo_sim, "map", "map.yaml"]), # Default map path, might need to be created
         description="Full path to map yaml file to load",
     )
     
@@ -44,7 +44,7 @@ def generate_launch_description():
     # Disable publish_map_tf because AMCL handles it
     sim_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            PathJoinSubstitution([unitree_go2_sim, "launch", "unitree_go2_launch.py"])
+            PathJoinSubstitution([unitree_go2_gazebo_sim, "launch", "unitree_go2_launch.py"])
         ),
         launch_arguments={
             "use_sim_time": use_sim_time,

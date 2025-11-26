@@ -7,7 +7,7 @@ from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
-    unitree_go2_sim = FindPackageShare("unitree_go2_sim")
+    unitree_go2_gazebo_sim = FindPackageShare("unitree_go2_gazebo_sim")
     go2_sdk = FindPackageShare("go2_sdk")
     
     slam_config = PathJoinSubstitution([go2_sdk, "config", "slam.yaml"])
@@ -37,7 +37,7 @@ def generate_launch_description():
     # Disable publish_map_tf because SLAM handles it
     sim_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            PathJoinSubstitution([unitree_go2_sim, "launch", "unitree_go2_launch.py"])
+            PathJoinSubstitution([unitree_go2_gazebo_sim, "launch", "unitree_go2_launch.py"])
         ),
         launch_arguments={
             "use_sim_time": use_sim_time,

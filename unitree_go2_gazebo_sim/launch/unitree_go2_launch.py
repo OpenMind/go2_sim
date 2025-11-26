@@ -21,17 +21,17 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration("use_sim_time")
     base_frame = "base_link"
 
-    unitree_go2_sim = launch_ros.substitutions.FindPackageShare(
-        package="unitree_go2_sim").find("unitree_go2_sim")
+    unitree_go2_gazebo_sim = launch_ros.substitutions.FindPackageShare(
+        package="unitree_go2_gazebo_sim").find("unitree_go2_gazebo_sim")
     unitree_go2_description = launch_ros.substitutions.FindPackageShare(
         package="unitree_go2_description").find("unitree_go2_description")
     
-    joints_config = os.path.join(unitree_go2_sim, "config/joints/joints.yaml")
+    joints_config = os.path.join(unitree_go2_gazebo_sim, "config/joints/joints.yaml")
     ros_control_config = os.path.join(
-        unitree_go2_sim, "config/ros_control/ros_control.yaml"
+        unitree_go2_gazebo_sim, "config/ros_control/ros_control.yaml"
     )
-    gait_config = os.path.join(unitree_go2_sim, "config/gait/gait.yaml")
-    links_config = os.path.join(unitree_go2_sim, "config/links/links.yaml")
+    gait_config = os.path.join(unitree_go2_gazebo_sim, "config/gait/gait.yaml")
+    links_config = os.path.join(unitree_go2_gazebo_sim, "config/links/links.yaml")
     default_model_path = os.path.join(unitree_go2_description, "urdf/unitree_go2_robot.xacro")
     default_world_path = os.path.join(unitree_go2_description, "worlds/default.sdf")
 
@@ -199,7 +199,7 @@ def generate_launch_description():
         package='rviz2',
         executable='rviz2',
         name='rviz2',
-        arguments=['-d', os.path.join(unitree_go2_sim, "rviz/rviz.rviz")],
+        arguments=['-d', os.path.join(unitree_go2_gazebo_sim, "rviz/rviz.rviz")],
         condition=IfCondition(LaunchConfiguration("rviz")),
         # parameters=[{"use_sim_time": use_sim_time}]
     )

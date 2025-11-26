@@ -1,12 +1,13 @@
-# Unitree Go2 Simulation (go2_sim)
+# Unitree Go2 Gazebo Simulation (go2_gazebo_sim)
 
-This repository contains the ROS 2 simulation packages for the Unitree Go2 quadruped robot. It provides a complete simulation environment with Gazebo, including mapping and navigation capabilities.
+This repository contains the ROS 2 Gazebo simulation packages for the Unitree Go2 quadruped robot. It provides a complete simulation environment with Gazebo, including mapping and navigation capabilities with support for tight-space navigation testing.
 
 ## Features
 - **Gazebo Simulation**: Realistic physics simulation of the Unitree Go2.
 - **Navigation Stack (Nav2)**: Fully configured navigation stack for autonomous movement.
-- **SLAM**: Mapping capabilities using `slam_toolbox` or `cartographer`.
-- **LiDAR Support**: Simulation of the Unitree 4D LiDAR.
+- **SLAM**: Mapping capabilities using `slam_toolbox`.
+- **LiDAR Support**: Simulation of Velodyne VLP-16 and Unitree 4D LiDAR.
+- **Mini Maze World**: Test environment with narrow corridors (0.85-0.9m), ramps, and obstacles for tight-space navigation testing.
 
 ## Installation
 
@@ -17,7 +18,7 @@ This repository contains the ROS 2 simulation packages for the Unitree Go2 quadr
 
 2.  Clone this repository as a submodule:
     ```bash
-    git clone https://github.com/OpenMind/go2_sim.git
+    git clone https://github.com/OpenMind/go2_gazebo_sim.git
     ```
 
 3.  Install dependencies:
@@ -40,7 +41,14 @@ This repository contains the ROS 2 simulation packages for the Unitree Go2 quadr
 ### 1. Launch SLAM (Mapping)
 To launch the simulation and start mapping the environment:
 ```bash
-ros2 launch unitree_go2_sim unitree_go2_slam.launch.py
+ros2 launch unitree_go2_gazebo_sim unitree_go2_slam.launch.py
+```
+
+**Default world**: `maze_world.sdf` (mini maze with narrow corridors and slopes)
+
+To use a different world:
+```bash
+ros2 launch unitree_go2_gazebo_sim unitree_go2_slam.launch.py world:=default.sdf
 ```
 
 #### Control the Robot with Teleop
@@ -69,14 +77,24 @@ This will create `my_map.yaml` and `my_map.pgm` in your home directory.
 ### 3. Launch Navigation
 To launch the simulation with the navigation stack using your saved map:
 ```bash
-ros2 launch unitree_go2_sim unitree_go2_nav.launch.py map:=${HOME}/my_map.yaml
+ros2 launch unitree_go2_gazebo_sim unitree_go2_nav.launch.py map:=${HOME}/my_map.yaml
 ```
+
+To use a different world:
+```bash
+ros2 launch unitree_go2_gazebo_sim unitree_go2_nav.launch.py world:=default.sdf map:=${HOME}/my_map.yaml
+```
+
 You can now set 2D Pose Estimates and Navigation Goals in RViz.
 
 ## Packages
-- `unitree_go2_sim`: Main simulation launch files and configurations.
-- `unitree_go2_description`: URDF and mesh files for the robot.
+- `unitree_go2_gazebo_sim`: Main Gazebo simulation launch files and configurations.
+- `unitree_go2_description`: URDF, mesh files, and world definitions for the robot.
 - `champ`: Quadruped controller framework.
+
+## World Files
+- **maze_world.sdf** (default): Mini maze with narrow passages (0.85-0.9m wide), upward/downward ramps (15° slopes), and step platform for comprehensive navigation testing.
+- **default.sdf**: Simple environment with ground plane for basic testing.
 
 ## Acknowledgements
 Special thanks to [khaledgabr77/unitree_go2_ros2](https://github.com/khaledgabr77/unitree_go2_ros2) and its contributors. This repository is built upon their excellent work.

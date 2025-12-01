@@ -1,3 +1,6 @@
+> [!NOTE]  
+> This repository has been archived. Please refer to [unitree-sdk](https://github.com/OpenMind/unitree-sdk) for further support.
+
 # Unitree Go2 Gazebo Simulation (go2_gazebo_sim)
 
 This repository contains the ROS 2 Gazebo simulation packages for the Unitree Go2 quadruped robot. It provides a complete simulation environment with Gazebo, including mapping and navigation capabilities with support for tight-space navigation testing.
